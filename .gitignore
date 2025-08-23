@@ -1,0 +1,22 @@
+# Node / Angular
+node_modules/
+dist/
+npm-debug.log
+yarn-error.log
+
+# Docker
+*.pid
+*.seed
+*.pid.lock
+docker-compose.override.yml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 環境変数
+.env
+
+# Logs
+*.log
+logs/

@@ -1,0 +1,22 @@
+server:
+  port: ${UDONITE_PORT}
+  url: '${UDONITE_URL}'
+db:
+  ip: '${MONGO_HOST}'
+  port: ${MONGO_PORT}
+  user: ''
+  password: ''
+storage:
+  storageType: 1
+  imageDataPath: '/var/www/udonite/image/'
+  imageUrlPath:  '${UDONITE_IMAGE_URL}'
+  imageStorageMaxSize: 10
+  audioDataPath: '/var/www/udonite/audio/'
+  audioUrlPath:  '${UDONITE_AUDIO_URL}'
+  audioStorageMaxSize: 50
+setting:
+  adminPassword: '${ADMIN_PASSWORD}'
+  maxRoomCount: 10
+  roomPerPage: 10
+log:
+  filePath: './log/udonite.log'

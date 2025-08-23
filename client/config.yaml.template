@@ -1,0 +1,6 @@
+app: {}
+dice:
+  url: "${BCDICE_API_URL}"
+  version: 2
+server:
+  url: "${PUBLIC_URL}"

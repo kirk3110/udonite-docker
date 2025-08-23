@@ -1,0 +1,24 @@
+FROM node:18-bullseye
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      git ca-certificates gettext-base \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# リポジトリを shallow clone
+RUN git clone --depth 1 https://github.com/Mafty-Hs/Udonite-Server Udonite-Server
+
+# 依存インストール
+WORKDIR /app/Udonite-Server
+RUN npm ci
+
+# 起動時に default.yaml を環境変数から生成
+WORKDIR /app
+COPY default.yaml.template /app/default.yaml.template
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+WORKDIR /app/Udonite-Server
+EXPOSE 8000
+CMD ["/entrypoint.sh"]

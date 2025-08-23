@@ -1,0 +1,35 @@
+# ---- build ----
+FROM node:18-bullseye AS build
+
+RUN apt-get update && apt-get install -y --no-install-recommends git ca-certificates \
+  && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /src
+RUN git clone --depth 1 https://github.com/Mafty-Hs/Udonite Udonite
+WORKDIR /src/Udonite
+
+RUN npm ci && npx ng build --configuration production
+
+# ---- serve ----
+FROM nginx:1.25-alpine
+
+# ▼ envsubst を入れる（gettext）
+RUN apk add --no-cache gettext
+
+# SPA 設定
+RUN sed -i 's#root .*#root /usr/share/nginx/html;#' /etc/nginx/conf.d/default.conf \
+ && sed -i 's#location / {.*#location / { try_files $uri $uri/ /index.html; }#' /etc/nginx/conf.d/default.conf
+
+COPY --from=build /src/Udonite/dist/udonite/ /usr/share/nginx/html/
+
+# 我々の統合用 nginx.conf でプロキシを追加（下で用意）
+RUN rm -f /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# 起動時に config.yaml を生成
+COPY entrypoint.sh /entrypoint.sh
+COPY config.yaml.template /usr/share/nginx/html/assets/config.yaml.template
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 80
+CMD ["/entrypoint.sh"]
