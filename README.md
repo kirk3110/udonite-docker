@@ -41,6 +41,8 @@ git pull origin main
 docker compose up -d --build
 ```
 
+---
+
 ## バックアップ
 
 ### 自動バックアップ
@@ -52,9 +54,14 @@ docker compose up -d --build
 ### 手動バックアップ
 ```bash
 docker exec -it udon-backup /usr/local/bin/backup.sh
+ls -lh backups/
+# mongo-2025-08-24-0330.gz
+# files-2025-08-24-0330.tar.gz
 ```
 
 ### 復元
+
+#### MongoDBの復元
 1. Mongo コンテナが起動していることを確認
    ```bash
    docker ps | grep udon-mongo
@@ -65,6 +72,16 @@ docker exec -it udon-backup /usr/local/bin/backup.sh
    cat "$LATEST" | docker exec -i udon-mongo sh -lc 'mongorestore --archive --gzip --drop'
    ```
    * --drop を付けると既存DBを削除してから復元します。注意してください。
+
+#### audio/image データの復元
+```bash
+# 例: 最新の tar アーカイブを展開
+LATEST=$(ls -1t backups/files-*.tar.gz | head -1)
+tar -xzf "$LATEST" -C /your/path/to/udonite-docker/
+```
+展開後、`data/audio` と `data/image` が復元されます。
+
+---
 
 ## ライセンス
 * このリポジトリの Docker 化部分は MIT License です
