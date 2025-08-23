@@ -1,7 +1,7 @@
 FROM alpine:3.20
 
-# mongodump/mongorestore と cron, tz
-RUN apk add --no-cache mongodb-tools dcron tzdata bash
+# BusyBox の crond を使う（dcron は入れない）
+RUN apk add --no-cache mongodb-tools tzdata bash
 
 # タイムゾーン（必要なら Asia/Tokyo に）
 ENV TZ=Asia/Tokyo

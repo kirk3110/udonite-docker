@@ -60,7 +60,6 @@ services:
       - RETENTION_DAYS=35
       - TZ=Asia/Tokyo
     volumes:
-      - backups_data:/backups
       - ./backups:/backups:rw
     depends_on: [mongo]
     networks: [udonite]
