@@ -1,18 +1,16 @@
 FROM alpine:3.20
 
-# BusyBox の crond を使う（dcron は入れない）
+# mongodb-tools, bash, tzdata をインストール
 RUN apk add --no-cache mongodb-tools tzdata bash
-
-# タイムゾーン（必要なら Asia/Tokyo に）
-ENV TZ=Asia/Tokyo
 
 # スクリプト・crontab 配置
 COPY backup.sh /usr/local/bin/backup.sh
-COPY crontab /etc/crontabs/root
-RUN chmod +x /usr/local/bin/backup.sh
+COPY entrypoint.sh /entrypoint.sh
+COPY crontab.template /crontab.template
+RUN chmod +x /usr/local/bin/backup.sh /entrypoint.sh
 
 # バックアップ先
 VOLUME ["/backups"]
 
-# cron フォアグラウンド
-CMD ["crond", "-f", "-l", "8"]
+# cron の設定を環境変数から生成し、crond をフォアグラウンドで起動
+ENTRYPOINT ["/entrypoint.sh"]
