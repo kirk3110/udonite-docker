@@ -57,8 +57,9 @@ services:
     environment:
       - MONGO_HOST=mongo
       - MONGO_PORT=27017
-      - RETENTION_DAYS=35
-      - TZ=Asia/Tokyo
+      - RETENTION_DAYS=${BACKUP_RETENTION_DAYS}
+      - TZ=${TZ}
+      - BACKUP_CRON=${BACKUP_CRON}
     volumes:
       - ./backups:/backups:rw
     depends_on: [mongo]

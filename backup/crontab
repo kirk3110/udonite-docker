@@ -1,2 +1,0 @@
-# 毎週日曜の03:30にバックアップ
-30 3 * * 0 /usr/local/bin/backup.sh >>/var/log/backup.log 2>&1
