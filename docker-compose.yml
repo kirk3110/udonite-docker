@@ -62,6 +62,7 @@ services:
       - BACKUP_CRON=${BACKUP_CRON}
     volumes:
       - ./backups:/backups:rw
+      - ./data:/data:ro
     depends_on: [mongo]
     networks: [udonite]
     restart: unless-stopped
