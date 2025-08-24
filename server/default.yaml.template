@@ -10,10 +10,10 @@ storage:
   storageType: 1
   imageDataPath: '/var/www/udonite/image/'
   imageUrlPath:  '${UDONITE_IMAGE_URL}'
-  imageStorageMaxSize: 10
+  imageStorageMaxSize: '${UDONITE_IMAGE_MAX_SIZE}'
   audioDataPath: '/var/www/udonite/audio/'
   audioUrlPath:  '${UDONITE_AUDIO_URL}'
-  audioStorageMaxSize: 50
+  audioStorageMaxSize: '${UDONITE_AUDIO_MAX_SIZE}'
 setting:
   adminPassword: '${ADMIN_PASSWORD}'
   maxRoomCount: 10

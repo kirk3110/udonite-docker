@@ -25,6 +25,8 @@ services:
       - MONGO_PORT=27017
       - UDONITE_IMAGE_URL=${PUBLIC_URL}image/
       - UDONITE_AUDIO_URL=${PUBLIC_URL}audio/
+      - UDONITE_IMAGE_MAX_SIZE=${IMAGE_MAX_SIZE}
+      - UDONITE_AUDIO_MAX_SIZE=${AUDIO_MAX_SIZE}
     volumes:
       - ./data/image:/var/www/udonite/image
       - ./data/audio:/var/www/udonite/audio
