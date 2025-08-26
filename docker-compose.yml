@@ -1,14 +1,20 @@
-version: "3.8"
+name: udonite
 
 networks: { udonite: {} }
-volumes:  { mongo_data: {}, backups_data: {} }
+volumes:
+  mongo_data:
+    name: udonite_mongo_data
+  mongo_config:
+    name: udonite_mongo_config
 
 services:
   mongo:
     image: mongo:6.0
     container_name: udon-mongo
     command: ["--bind_ip_all"]
-    volumes: [ "mongo_data:/data/db" ]
+    volumes:
+      - mongo_data:/data/db
+      - mongo_config:/data/configdb
     networks: [udonite]
     restart: unless-stopped
 
