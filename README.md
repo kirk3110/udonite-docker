@@ -1,3 +1,8 @@
+# !!Caution!!
+
+現在このリポジトリの設定ではserverコンテナの再起動ごとにmongoDBのデータを読み込めなくなる状態です
+現在修正中対応中です
+
 # Udonite Docker
 
 [Udonite](https://github.com/Mafty-Hs/Udonite) を Docker Compose で動かすための環境です。  
