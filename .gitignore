@@ -24,3 +24,7 @@ logs/
 # backups artifacts
 backups/
 !backups/.gitkeep
+
+# data files
+data/image/*
+data/audio/*
